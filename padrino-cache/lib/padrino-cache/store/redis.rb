@@ -34,7 +34,7 @@ module Padrino
         # @api public
         def get(key)
           code = @backend.get(key)
-          Marshal.load(code) if code.present?
+          Marshal.load(code) unless code.nil? || code.clone.unpack("C*").pack("U*").blank?
         end
 
         ##
